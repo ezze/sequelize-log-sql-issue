@@ -41,7 +41,7 @@ const Task = connection.define('task', {
         type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0
-    },
+    }
 });
 
 (async() => {

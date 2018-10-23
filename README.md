@@ -1,8 +1,8 @@
 # sequelize-log-sql-issue
 
-This repo reproduces an issue with logging single `INSERT` and `UPDATE` SQL queries. In Sequelize v5.0.0-beta.13
-parameters' values binded to a SQL query don't substitute tokens prefixed with `$` (`$1`, `$2`, `$3` etc...) when
-logging the SQL query.
+This repo reproduces an [issue](https://github.com/sequelize/sequelize/issues/10067) with logging single `INSERT` and
+`UPDATE` SQL queries. In Sequelize v5.0.0-beta.13 parameters' values binded to a SQL query don't substitute tokens
+prefixed with `$` (`$1`, `$2`, `$3`, etc...) when logging the SQL query.
 
 ## Installation
 
