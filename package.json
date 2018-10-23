@@ -1,0 +1,13 @@
+{
+  "name": "sequelize-sql-format-issue",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "pg": "^7.5.0",
+    "sequelize": "^5.0.0-beta.13"
+  }
+}
