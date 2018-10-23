@@ -1,10 +1,7 @@
 const Sequelize = require('sequelize');
 
-const database = 'sequelize-sql-format';
-const username = 'postgres';
-const password = 'postgres';
-const dialect = 'postgres';
-const host = 'localhost';
+const config = require('./config/config').development;
+const { database, username, password, dialect, host } = config;
 
 const connection = new Sequelize(database, username, password, {
     dialect,
@@ -49,7 +46,20 @@ const Task = connection.define('task', {
 
 (async() => {
     await Task.sync({ force: true, logging: false });
-    await Task.create({ name: 'First task', status: 1 });
-    await Task.update({ status: 2 }, { where: { status: 1 }});
+    const transaction = await connection.transaction();
+    try {
+        await Task.create({ name: 'First task', status: 1 }, { transaction });
+        await Task.bulkCreate([
+            { name: 'Second task', status: 1 },
+            { name: 'Third task'}
+        ], { transaction });
+        await Task.findAll({ where: { status: 1 }, transaction });
+        await Task.update({ status: 2 }, { where: { status: 1 }, transaction });
+        await transaction.commit();
+    }
+    catch (e) {
+        await transaction.rollback();
+        console.error(e);
+    }
     await connection.connectionManager.close();
 })();
